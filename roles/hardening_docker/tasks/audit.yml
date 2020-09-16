@@ -1,0 +1,35 @@
+
+- name: Only run "update_cache=yes" if the last one is more than 3600 seconds ago
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_os_family == "Debian"
+
+- name: Install Audit
+  package:
+    name: "{{ audit_package[ansible_os_family] }}"
+    state: latest
+
+- name: Audit service is running and enabled
+  service:
+    name: "{{ audit_service[ansible_os_family] }}"
+    state: started
+    enabled: yes
+
+- name: Configure audit rules
+  lineinfile:
+    path: /etc/audit/rules.d/audit.rules
+    line: "{{ item }}"
+  loop:
+    - auditctl -w /var/lib/docker -k docker
+    - auditctl -w /etc/docker -k docker
+    - auditctl -w /lib/systemd/system/docker.service -k docker
+    - auditctl -w /lib/systemd/system/docker.socket -k docker
+    - auditctl -w /etc/default/docker -k docker
+    - auditctl -w /etc/docker/daemon.json -k docker    
+    - auditctl -w /usr/bin/docker-containerd -k docker
+    - auditctl -w /usr/bin/docker-runc -k docker
+  notify: restart audit
+
+
+   

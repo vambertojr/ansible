@@ -1,0 +1,31 @@
+- name: Remove Old Versions
+  yum:
+    name:
+      - docker 
+      - docker-client 
+      - docker-client-latest 
+      - docker-common 
+      - docker-latest 
+      - docker-latest-logrotate 
+      - docker-logrotate 
+      - docker-engine
+    state: absent
+
+- name: Add Docker repo
+  get_url:
+    url: "https://download.docker.com/linux/centos/docker-ce.repo"
+    dest: /etc/yum.repos.d/docker-ce.repo
+      
+- name: Install containerd separately (CentOS 8).
+  package:
+    name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.2.el7.x86_64.rpm
+    state: present
+  when: ansible_distribution_major_version | int == 8
+
+- name: Install Docker-CE
+  yum:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+  notify: start docker

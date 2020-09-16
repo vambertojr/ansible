@@ -1,0 +1,11 @@
+---
+# tasks file for hardening_docker
+- name: Install and configure audit
+  include_tasks: audit.yml
+
+- name: Configure docker daemon
+  include_tasks: daemon.yml
+
+- name: Configure docker daemon
+  include_tasks: permissions.yml
+

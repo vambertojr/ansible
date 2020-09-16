@@ -1,0 +1,48 @@
+
+- name: Set docker.service correct permissions
+  file:
+    path: /lib/systemd/system/docker.service
+    owner: root
+    group: root
+    mode: 0644
+    state: file
+
+- name: Set docker.socket correct permissions
+  file:
+    path: /usr/lib/systemd/system/docker.socket
+    owner: root
+    group: root
+    mode: 0644
+    state: file
+
+- name: Set /etc/docker correct permissions
+  file:
+    path: /etc/docker
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+
+- name: Set docker.sock correct permissions
+  file:
+    path: /var/run/docker.sock
+    owner: root
+    group: docker
+    mode: 0660
+    state: file
+
+- name:  Set daemon.json correct permissions
+  file:
+    path: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: 0644
+    state: file
+
+- name: Set docker correct permissions
+  file:
+    path: /etc/default/docker
+    owner: root
+    group: root
+    mode: 0644
+    state: file

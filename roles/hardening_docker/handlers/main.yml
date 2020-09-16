@@ -1,0 +1,11 @@
+---
+# handlers file for hardening_docker
+- name: restart audit
+  service:
+    name: "{{ audit_service[ansible_os_family] }}"
+    state: restarted
+
+- name: restart docker
+  service:
+    name: docker
+    state: restarted

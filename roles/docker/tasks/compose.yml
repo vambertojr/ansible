@@ -1,0 +1,10 @@
+- name: Delete existing docker-compose.
+  file:
+    path: "{{ compose_path }}"
+    state: absent
+  
+- name: Install docker-compose.
+  get_url:
+    url: https://github.com/docker/compose/releases/download/{{ compose_version }}/docker-compose-Linux-x86_64
+    dest: "{{ compose_path }}"
+    mode: 0755

@@ -1,0 +1,8 @@
+---
+# defaults file for docker
+
+compose_version: "1.26.2"
+compose_path: /usr/local/bin/docker-compose
+docker_user:
+   - vamberto
+#   - teste

@@ -1,0 +1,15 @@
+---
+- name: Install Epel Repository
+  dnf:
+    name: "{{ epel_repo_url }}"
+    state: present
+
+- name: Update OS
+  yum:
+    name: "*"
+    state: latest
+
+- name: Remove Yum Cache
+  file:
+    path: rm -rf /var/cache/yum
+    state: absent

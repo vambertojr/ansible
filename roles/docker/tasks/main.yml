@@ -1,0 +1,22 @@
+---
+# tasks file for docker
+
+- name: Install Docker
+  include_tasks: "{{ ansible_os_family }}.yml"
+
+#- name: Include play for Debian Like
+#  include_tasks: debian.yml
+#  when: ansible_os_family == 'Debian'
+
+#- name: Include play for RedHat Like
+#  include_tasks: redhat.yml
+#  when: ansible_os_family == "RedHat"
+
+- name: Install docker-compose
+  include_tasks: compose.yml
+
+- name: Add user(s) to docker group
+  include_tasks: user.yml
+#  when: docker_user|length > 0
+#  ignore_errors: yes
+

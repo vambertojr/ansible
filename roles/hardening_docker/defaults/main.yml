@@ -1,0 +1,11 @@
+---
+# defaults file for hardening_docker
+audit_package:
+  RedHat: audit
+  Debian: auditd
+audit_config_file:
+  RedHat: /etc/audit/rules.d/docker.rules
+  Debian: /etc/audit/rules.d/docker.rules
+audit_service:
+  RedHat: auditd
+  Debian: auditd
